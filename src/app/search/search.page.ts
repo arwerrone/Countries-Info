@@ -21,7 +21,6 @@ export class SearchPage implements OnInit {
   constructor(private countryService: CountryService) { }
 
   ngOnInit() {
-    //this.listOfCountries = CountryData.data;
     this.loadCountries();
   }
 
@@ -29,8 +28,5 @@ export class SearchPage implements OnInit {
     this.listOfCountries = this.countryService.getAllCountries();
   }
 
-  /*searchChanged(){
-    this.listOfCountries = this.countryService.getCountryByName(this.searchTerm);
-  }*/
 
 }

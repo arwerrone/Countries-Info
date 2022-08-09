@@ -18,16 +18,5 @@ export class CountryService {
     return CountryData.data;
   }
 
-  /*getCountryByName(name: string){
-    let temp = CountryData.data;
-
-    temp.forEach((element,index) => {
-      if(!element.name.startsWith(name)){
-        temp.splice(index,1);
-      }
-    });
-
-    return temp;
-  }*/
 
 }

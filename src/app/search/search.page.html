@@ -16,7 +16,8 @@
 
 
   <ion-list *ngFor="let country of listOfCountries | filter:filterTerm">
-    <ion-item>{{country.name}}</ion-item>
+    <ion-item (click)="countrySelected(country)" >{{country.name}}
+    </ion-item>
   </ion-list>
 
 </ion-content>
