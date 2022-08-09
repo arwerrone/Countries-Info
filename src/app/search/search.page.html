@@ -11,11 +11,11 @@
 
 
   <ion-toolbar style="padding-top: 5%;" class="ion-justify-content-center">
-    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)" ></ion-searchbar>
+    <ion-searchbar [(ngModel)]="filterTerm"></ion-searchbar>
   </ion-toolbar>
 
 
-  <ion-list *ngFor="let country of listOfCountries">
+  <ion-list *ngFor="let country of listOfCountries | filter:filterTerm">
     <ion-item>{{country.name}}</ion-item>
   </ion-list>
 

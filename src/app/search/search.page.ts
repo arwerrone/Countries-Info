@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {CountryData} from '../CountryData';
+import {Country, CountryService} from '../service/country.service';
+//import {CountryData} from '../CountryData';
 
-interface Country{
+/*interface Country{
   name: string,
   url: string,
-}
+}*/
 
 @Component({
   selector: 'app-search',
@@ -15,17 +16,21 @@ interface Country{
 export class SearchPage implements OnInit {
 
   listOfCountries: Country[] = [];
+  filterTerm: string = '';
 
-
-  constructor() { }
+  constructor(private countryService: CountryService) { }
 
   ngOnInit() {
-    this.listOfCountries = CountryData.data;
-
+    //this.listOfCountries = CountryData.data;
+    this.loadCountries();
   }
 
-  searchChanged(){
-    
+  loadCountries(){
+    this.listOfCountries = this.countryService.getAllCountries();
   }
+
+  /*searchChanged(){
+    this.listOfCountries = this.countryService.getCountryByName(this.searchTerm);
+  }*/
 
 }
