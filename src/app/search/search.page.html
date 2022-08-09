@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>search</ion-title>
+    <ion-title class="ion-text-center">Search Country</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+
+  <ion-toolbar style="padding-top: 5%;" class="ion-justify-content-center">
+    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)" ></ion-searchbar>
+  </ion-toolbar>
+
+
+  <ion-list *ngFor="let country of listOfCountries">
+    <ion-item>{{country.name}}</ion-item>
+  </ion-list>
 
 </ion-content>
