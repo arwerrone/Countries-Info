@@ -3,22 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import {CountryData} from '../CountryData';
 import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 export interface Country{
   name: string,
   url: string,
 }
-
-/*export interface CountryDetails{
-  name: string,
-  languages: string[],
-  vaccines: string[],
-  currency: string,
-  neighbors: string[],
-  voltage: string,
-  emergency: string,
-  advise: string
-}*/
 
 interface CountryToSave {
   name: string;
@@ -35,7 +26,7 @@ export class CountryService {
   url = 'https://travelbriefing.org/';
   private _storage: Storage | null = null;
 
-  constructor(private http: HttpClient, private storage: Storage) {
+  constructor(private http: HttpClient, private storage: Storage, private alertController: AlertController, private router: Router) {
     this.init();
   }
 
@@ -54,18 +45,59 @@ export class CountryService {
   }
 
   //STORAGE STUFF
+  async saveSuccess(){
+    const alert = await this.alertController.create({
+      header: 'Done!',
+      message: 'Country Added To Favorite',
+      //buttons: ['OK']
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          this.router.navigate(['/home']);
+        }
+      }]
+    });
+
+    await alert.present();
+  }
 
   saveFavCountry(name: string){
 
-    //this._storage.set(COUNTRY_KEY, name);
-
-    this.storage.get(COUNTRY_KEY).then((countries: string[]) => {
+    this.storage.get(COUNTRY_KEY).then( async (countries: string[]) => {
       if(!countries || countries.length === 0){
-        return this.storage.set(COUNTRY_KEY, [name]);
+        this.storage.set(COUNTRY_KEY, [name]);
+        this.saveSuccess();
 
       }else{
-        countries.push(name);
-        return this.storage.set(COUNTRY_KEY, countries);
+
+        let ok = false;
+        for (let i of countries){
+          if(name == i){
+            ok = true;
+          }
+        }
+
+        if(!ok){
+          countries.push(name);
+          this.storage.set(COUNTRY_KEY, countries);
+          this.saveSuccess();
+
+        }else{
+
+          const alert = await this.alertController.create({
+            header: 'Error!',
+            message: 'Country Already In Favorite',
+            buttons: [{
+              text: 'OK',
+              handler: () => {
+                this.router.navigate(['/home']);
+              }
+            }]
+          });
+      
+          await alert.present();
+
+        }
 
       }
     });

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CountryService } from '../service/country.service';
-import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-country-detail',
@@ -18,7 +16,7 @@ export class CountryDetailPage implements OnInit {
 
   //toFav: CountryDetails;
 
-  constructor(private countryService: CountryService, private activated_route: ActivatedRoute, private router: Router, private alertController: AlertController) { }
+  constructor(private countryService: CountryService, private activated_route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -41,22 +39,9 @@ export class CountryDetailPage implements OnInit {
 
   }
 
-  async addFavorites(){
+  addFavorites(){
     this.countryService.saveFavCountry(this.countryDetails.names.name);
 
-    const alert = await this.alertController.create({
-      header: 'Done!',
-      message: 'Country Added To Favorite',
-      //buttons: ['OK']
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-          this.router.navigate(['/home']);
-        }
-      }]
-    });
-
-    await alert.present();
   }
 
 
