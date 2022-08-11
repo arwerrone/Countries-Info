@@ -25,7 +25,27 @@ export class HomePage {
       this.countryList = countries;
     });
 
-    console.log(this.countryList);
+  }
+
+  removeCountry(name){
+    this.countryService.deleteFromFav(name);
+    this.loadCountryList();
+    window.location.reload();
+  }
+
+  searchChanged(val: string){
+    let temp = [];
+
+    this.countryService.loadFavCountry().then(countries => {
+      countries.forEach(countryName => {
+        if(countryName.toLowerCase().startsWith(val.toLowerCase())){
+          temp.push(countryName);
+        }
+      })
+    });
+
+    this.countryList = temp;
+
   }
 
 }

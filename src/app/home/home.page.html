@@ -14,14 +14,39 @@
 <ion-content [fullscreen]="true">
 
   <ion-toolbar style="padding-top: 5%;" class="ion-justify-content-center">
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchVal" (ionChange)="searchChanged(searchVal)"></ion-searchbar>
   </ion-toolbar>
 
 
-  <div *ngIf="countryList else noCountry">
+    <ion-list *ngFor="let country of countryList">    
+      
+      <ion-item-sliding >
+        <ion-item [routerLink]="['/search/',country]">{{country}}</ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger" (click)="removeCountry(country)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
 
-    <ion-list *ngFor="let country of countryList">      
-      <ion-item>{{country}}</ion-item>
+    </ion-list>
+
+
+  <!--
+
+      <div *ngIf="countryList else noCountry">
+
+    <ion-list >    
+      
+      <ion-item-sliding *ngFor="let country of countryList" button>
+        <ion-item>{{country}}</ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger" (click)="removeCountry(country)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+
     </ion-list>
 
   </div>
@@ -30,6 +55,7 @@
     <div class="ion-text-center">No Country in favorites, add some :)</div>
   </ng-template>
 
+  -->
 
 
 </ion-content>

@@ -109,4 +109,25 @@ export class CountryService {
     return this.storage.get(COUNTRY_KEY);
   }
 
+  deleteFromFav(country: string){
+
+    return this.storage.get(COUNTRY_KEY).then((countries: string[]) => {
+      if(!countries || countries.length === 0){
+        return null;
+      }
+
+      let toKeep: string[] = [];
+
+      for (let i of countries){
+        if(i != country){
+          toKeep.push(i);
+        }
+      }
+
+      return this.storage.set(COUNTRY_KEY, toKeep);
+
+    });
+
+  }
+
 }
