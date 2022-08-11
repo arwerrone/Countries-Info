@@ -18,13 +18,18 @@
   </ion-toolbar>
 
 
-  <ion-list>
-    <ion-item>Amsterdam</ion-item>
-    <ion-item>Bogota</ion-item>
-    <ion-item>Buenos Aires</ion-item>
-    <ion-item>Cairo</ion-item>
-    <ion-item>Dhaka</ion-item>
+  <div *ngIf="countryList else noCountry">
 
-  </ion-list>
+    <ion-list *ngFor="let country of countryList">      
+      <ion-item>{{country}}</ion-item>
+    </ion-list>
+
+  </div>
+
+  <ng-template #noCountry>
+    <div class="ion-text-center">No Country in favorites, add some :)</div>
+  </ng-template>
+
+
 
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CountryService } from '../service/country.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,24 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  countryList: string[] = [];
+
+  constructor(private countryService: CountryService) {}
+
+  ngOnInit(){
+    this.loadCountryList();
+  }
+ 
+  ionViewWillEnter(){
+    this.loadCountryList();
+  }
+
+  loadCountryList(){
+    this.countryService.loadFavCountry().then(countries => {
+      this.countryList = countries;
+    });
+
+    console.log(this.countryList);
+  }
 
 }
