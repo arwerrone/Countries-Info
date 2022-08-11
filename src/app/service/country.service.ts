@@ -11,11 +11,6 @@ export interface Country{
   url: string,
 }
 
-interface CountryToSave {
-  name: string;
-}
-
-
 const COUNTRY_KEY = 'my-countries';
 
 @Injectable({
