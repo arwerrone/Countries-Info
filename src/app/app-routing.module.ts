@@ -13,12 +13,19 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+    children: [{
+      path:'',
+      loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+    },{
+      path:':country_name',
+      loadChildren: () => import('./country-detail/country-detail.module').then( m => m.CountryDetailPageModule)
+    }]
+    //loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
   },
-  {
+  /*{
     path: 'country-detail',
     loadChildren: () => import('./country-detail/country-detail.module').then( m => m.CountryDetailPageModule)
-  },
+  },*/
 ];
 
 @NgModule({

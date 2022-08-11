@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import {Country, CountryService} from '../service/country.service';
-//import {CountryData} from '../CountryData';
 
-/*interface Country{
-  name: string,
-  url: string,
-}*/
 
 @Component({
   selector: 'app-search',
@@ -17,6 +13,8 @@ export class SearchPage implements OnInit {
 
   listOfCountries: Country[] = [];
   filterTerm: string = '';
+  CountryDetails: Observable<any>;
+
 
   constructor(private countryService: CountryService) { }
 
@@ -28,5 +26,5 @@ export class SearchPage implements OnInit {
     this.listOfCountries = this.countryService.getAllCountries();
   }
 
-
+  
 }

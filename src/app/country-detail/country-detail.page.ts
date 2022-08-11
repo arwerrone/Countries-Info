@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CountryService } from '../service/country.service';
 
 @Component({
   selector: 'app-country-detail',
@@ -7,9 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CountryDetailPage implements OnInit {
 
-  constructor() { }
+  CountryDet: Observable<any>;
+  //countryDetails: CountryDetails;
+  countryDetails: any;
+
+  constructor(private countryService: CountryService, private activated_route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.activated_route.params.subscribe((data: Params) => {
+      const CName = data['country_name'];
+      //console.log(CName);
+      
+      this.CountryDet = this.countryService.getCountryDetails(CName);
+      //console.log(this.CountryDet);
+
+    })
+
+    this.CountryDet.subscribe(data => {
+      //console.log(data.names.name);
+      //console.log(typeof(data.names.name));
+      this.countryDetails = data;
+
+    });
+
+
   }
 
 }

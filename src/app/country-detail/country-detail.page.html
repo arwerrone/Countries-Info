@@ -1,9 +1,88 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>countryDetail</ion-title>
+    <ion-title class="ion-text-center">Country Detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>SAVE  </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-list *ngIf="countryDetails">
+    
+    <ion-item>
+      <ion-label>
+        <h1 class="ion-text-center">Name</h1>
+        <h2>{{countryDetails.names.name}}</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h1 class="ion-text-center">Languages</h1>
+        <h2>&nbsp; • &nbsp;</h2>
+        <h2 *ngFor="let lang of countryDetails.language" >&nbsp;{{lang.language}}&nbsp;&nbsp; • </h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h1 class="ion-text-center">Vaccinations</h1>
+
+        <div *ngIf="countryDetails.vaccinations.length else noVac">
+          <h2>&nbsp; • &nbsp;</h2>
+          <h2 *ngFor="let vac of countryDetails.vaccinations" class="angular-with-newlines">&nbsp;{{vac.name}}&nbsp;&nbsp; • </h2>
+        </div>
+
+        <ng-template #noVac>
+          <h2>&nbsp;&nbsp;none</h2>
+        </ng-template>
+        
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h1 class="ion-text-center">Currency</h1>
+        <h2>{{countryDetails.currency.name}}</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h1 class="ion-text-center">Neighbors</h1>
+        <h2>&nbsp; • &nbsp;</h2>
+        <h2 *ngFor="let neig of countryDetails.neighbors" class="angular-with-newlines">&nbsp;{{neig.name}}&nbsp;&nbsp; • </h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="ion-text-center">
+        <h1>Voltage</h1>
+        <h2>{{countryDetails.electricity.voltage}}</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="ion-text-center">
+        <h1>Emergency</h1>
+        <h2>{{countryDetails.telephone.police}}</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h1 class="ion-text-center">Advise</h1>
+        <h2>{{countryDetails.advise.UA.advise}}</h2>
+      </ion-label>
+    </ion-item>
+
+
+  </ion-list>
+
+  
 </ion-content>
